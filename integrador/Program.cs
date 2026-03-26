@@ -6,136 +6,254 @@ namespace integrador
     {
         static void Main(string[] args)
         {
+            string[] cursadas = new string[3];
+            string[] cursos = { "Programacion .NET", "Programacion JAVA", "Programacion PHP" };
+
             Console.WriteLine("¡Bienvenido al formulario de inscripcion!\n");
 
-            string[] cursadas = {"", "", ""};
-            string[] cursos = { "Programacion .NET", "Programacion JAVA", "Programacion PHP" };
-            
-            Console.Write("Ingresa tu nombre: ");
-            string nombre = Console.ReadLine();
+            string nombre = LeerTextoObligatorio("Ingresa tu nombre: ");
+            string apellido = LeerTextoObligatorio("Ingresa tu apellido: ");
+            int edad = LeerEnteroPositivo("Ingresa tu edad: ");
+            string email = LeerTextoObligatorio("Ingresa tu email: ");
 
-            Console.Write("Ingresa tu apellido: ");
-            string apellido = Console.ReadLine();
-            
-            Console.Write("Ingresa tu edad: ");
-            int edad = int.Parse(Console.ReadLine());
+            MostrarDatosIngresados(nombre, apellido, edad, email);
 
-            Console.Write("Ingresa tu email: ");
-            string email = Console.ReadLine();
+            if (!LeerConfirmacion("\n¿Los datos proporcionados son correctos?", "'S' para confirmar, 'N' para cancelar la operacion: "))
+            {
+                Console.WriteLine("Datos incorrectos. Ejecuta nuevamente la aplicacion.");
+                return;
+            }
 
+            Console.WriteLine("\nDatos guardados correctamente.");
+            GestionarInscripciones(cursadas, cursos);
+            MostrarConstancia(nombre, apellido, email, cursadas);
+        }
+
+        private static string LeerTextoObligatorio(string mensaje)
+        {
+            string valor;
+
+            do
+            {
+                Console.Write(mensaje);
+                valor = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(valor))
+                {
+                    return valor.Trim();
+                }
+
+                Console.WriteLine("El valor ingresado no puede estar vacio. Intenta nuevamente.\n");
+            }
+            while (true);
+        }
+
+        private static int LeerEnteroPositivo(string mensaje)
+        {
+            int numero;
+            string valorIngresado;
+
+            do
+            {
+                Console.Write(mensaje);
+                valorIngresado = Console.ReadLine();
+
+                if (int.TryParse(valorIngresado, out numero) && numero > 0)
+                {
+                    return numero;
+                }
+
+                Console.WriteLine("Debes ingresar un numero entero mayor que cero.\n");
+            }
+            while (true);
+        }
+
+        private static bool LeerConfirmacion(string titulo, string mensaje)
+        {
+            string respuesta;
+
+            do
+            {
+                Console.WriteLine(titulo);
+                Console.Write(mensaje);
+                respuesta = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(respuesta))
+                {
+                    respuesta = respuesta.Trim().ToUpper();
+
+                    if (respuesta.Equals("S"))
+                    {
+                        return true;
+                    }
+
+                    if (respuesta.Equals("N"))
+                    {
+                        return false;
+                    }
+                }
+
+                Console.WriteLine("Opcion invalida. Ingresa 'S' o 'N'.\n");
+            }
+            while (true);
+        }
+
+        private static void MostrarDatosIngresados(string nombre, string apellido, int edad, string email)
+        {
             Console.WriteLine();
-
             Console.WriteLine("Los datos ingresados son:");
             Console.WriteLine("Nombre: " + nombre);
             Console.WriteLine("Apellido: " + apellido);
             Console.WriteLine("Edad: " + edad);
             Console.WriteLine("Email: " + email);
-
-            Console.WriteLine("\n¿Los datos proporcionados son correctos?");
-            Console.Write("'S' para confirmar, 'N' para cancelar la operacion: ");
-            string datosValidos = Console.ReadLine().ToUpper();    
-
-            if(datosValidos.Equals("S"))
-            {
-                Console.WriteLine("\nDatos guardados correctamente.");
-
-                int opc;
-
-                Console.WriteLine("\n¡Inscripcion de cursadas!");
-                Console.WriteLine("Presione 'Enter' para continuar");
-
-                do
-                {                    
-                    Console.ReadKey();
-                    Console.Clear();
-
-                    Console.WriteLine("1. Programacion .NET");
-                    Console.WriteLine("2. Programacion JAVA");
-                    Console.WriteLine("3. Programacion PHP");
-                    Console.WriteLine("0. Salir de la aplicacion");
-
-                    Console.Write("Seleccione el codigo de la carrera elegida: ");
-                    opc = int.Parse(Console.ReadLine());
-
-                    Console.WriteLine();
-
-                    for (int i = 0; i < cursadas.Length; i++)
-                    {
-                        if (opc != 0 && cursadas[i].Equals(cursos[opc - 1]))
-                        {
-                            opc = 5;
-                            break;
-                        }
-                    }
-
-                    switch (opc)
-                    {
-                        case 1: 
-                            Helper.posicionDisponible(cursadas, cursos, 0);
-                            Console.WriteLine("Seleccionaste el curso de Programacion .NET\n");
-                            break;
-                        case 2: 
-                            Console.WriteLine("Seleccionaste el curso de Programacion JAVA\n");
-                            Helper.posicionDisponible(cursadas, cursos, 1); 
-                            break;
-                        case 3: 
-                            Console.WriteLine("Seleccionaste el curso de Programacion PHP\n");
-                            Helper.posicionDisponible(cursadas, cursos, 2); 
-                            break;
-                        case 5: Console.WriteLine("Ya seleccionaste esa cursada!\n"); break;
-                        case 0: Console.WriteLine("Saliste correctamente de la seleccion de cursadas\n"); break;
-                        default: Console.WriteLine("No existe el curso para la opcion seleccionada\n"); break;
-                    }
-
-                    if (opc != 0)
-                    {
-                        Console.WriteLine("Puede seguir eligiendo carreras o guardar y salir");
-                        Console.Write("'S' para continuar, 'N' para guardar y salir: ");
-                        string guardar = Console.ReadLine().ToUpper();
-
-                        if (guardar.Equals("N"))
-                        {
-                            opc = 0;
-                            Console.WriteLine("\nCursos guardados correctamente!\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Presione 'Enter' para continuar");
-                        }
-                    }
-
-                } while (opc != 0);
-            }
-            else
-            {
-                Console.WriteLine("Datos incorrectos. Ejecutar nuevamente la aplicacion");
-            }
-
-            Console.WriteLine("Constancia de incripcion");
-            Console.WriteLine($"Alumno: {nombre} {apellido}");
-            Console.WriteLine($"Correo electronico: {email}");
-            Console.WriteLine("Cursadas:");
-            for(int i = 0; i < cursadas.Length; i++)
-            {
-                Console.WriteLine(cursadas[i]);
-            }
         }
-    }
 
-    class Helper
-    {
-        public static void posicionDisponible(string[] cursadas, string[] cursos, int posicion)
+        private static void GestionarInscripciones(string[] cursadas, string[] cursos)
         {
+            int opcion;
+
+            Console.WriteLine("\n¡Inscripcion de cursadas!");
+            Console.WriteLine("Presione una tecla para continuar");
+
+            do
+            {
+                Console.ReadKey();
+                Console.Clear();
+                MostrarMenuCursos(cursos);
+                opcion = LeerOpcionMenu(cursos.Length);
+
+                Console.WriteLine();
+
+                if (opcion == 0)
+                {
+                    Console.WriteLine("Saliste correctamente de la seleccion de cursadas.\n");
+                    break;
+                }
+
+                string cursoSeleccionado = cursos[opcion - 1];
+
+                if (Helper.ContieneCurso(cursadas, cursoSeleccionado))
+                {
+                    Console.WriteLine("Ya seleccionaste esa cursada.\n");
+                }
+                else if (Helper.AsignarPrimeraPosicionDisponible(cursadas, cursoSeleccionado))
+                {
+                    Console.WriteLine("Seleccionaste el curso de " + cursoSeleccionado + "\n");
+                }
+                else
+                {
+                    Console.WriteLine("No hay mas espacios disponibles para nuevas cursadas.\n");
+                }
+
+                if (opcion != 0)
+                {
+                    if (!Helper.HayPosicionDisponible(cursadas))
+                    {
+                        Console.WriteLine("\nCursos guardados correctamente!\n");
+                        break;
+                    }
+
+                    Console.WriteLine("Puede seguir eligiendo carreras o guardar y salir");
+
+                    if (!LeerConfirmacion(string.Empty, "'S' para continuar, 'N' para guardar y salir: "))
+                    {
+                        Console.WriteLine("\nCursos guardados correctamente!\n");
+                        break;
+                    }
+
+                    Console.WriteLine("Presione una tecla para continuar");
+                }
+            }
+            while (true);
+        }
+
+        private static void MostrarMenuCursos(string[] cursos)
+        {
+            for (int i = 0; i < cursos.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + cursos[i]);
+            }
+
+            Console.WriteLine("0. Salir de la aplicacion");
+            Console.Write("Seleccione el codigo de la carrera elegida: ");
+        }
+
+        private static int LeerOpcionMenu(int cantidadOpciones)
+        {
+            int opcion;
+            string valorIngresado;
+
+            do
+            {
+                valorIngresado = Console.ReadLine();
+
+                if (int.TryParse(valorIngresado, out opcion) && opcion >= 0 && opcion <= cantidadOpciones)
+                {
+                    return opcion;
+                }
+
+                Console.Write("Opcion invalida. Ingresa un numero entre 0 y " + cantidadOpciones + ": ");
+            }
+            while (true);
+        }
+
+        private static void MostrarConstancia(string nombre, string apellido, string email, string[] cursadas)
+        {
+            Console.WriteLine("Constancia de inscripcion");
+            Console.WriteLine("Alumno: " + nombre + " " + apellido);
+            Console.WriteLine("Correo electronico: " + email);
+            Console.WriteLine("Cursadas:");
+
             for (int i = 0; i < cursadas.Length; i++)
             {
-                if (cursadas[i].Equals(""))
+                if (!string.IsNullOrWhiteSpace(cursadas[i]))
                 {
-                    cursadas[i] = cursos[posicion];
-                    i = cursadas.Length;
+                    Console.WriteLine("- " + cursadas[i]);
                 }
             }
         }
     }
 
+    internal static class Helper
+    {
+        public static bool AsignarPrimeraPosicionDisponible(string[] cursadas, string curso)
+        {
+            for (int i = 0; i < cursadas.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(cursadas[i]))
+                {
+                    cursadas[i] = curso;
+                    return true;
+                }
+            }
 
+            return false;
+        }
+
+        public static bool ContieneCurso(string[] cursadas, string curso)
+        {
+            for (int i = 0; i < cursadas.Length; i++)
+            {
+                if (cursadas[i].Equals(curso, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool HayPosicionDisponible(string[] cursadas)
+        {
+            for (int i = 0; i < cursadas.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(cursadas[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
 }
