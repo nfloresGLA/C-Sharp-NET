@@ -1,46 +1,52 @@
-# Desarrollo web con HTML - EducacionIT.
+# Proyecto integrador en C# .NET
 
-### Proyecto integrador hecho con C# .NET Visual Studio IDE.
-### Integrador con lo aprendido clase a clase.
+## Descripción general
 
-<hr>
+Este repositorio contiene un **proyecto integrador de consola desarrollado en C#**.  
+Su finalidad es simular un **formulario de inscripción de alumnos** y la posterior **selección de cursadas**, aplicando contenidos introductorios de programación vistos de manera progresiva.
 
-## <u>Introduccion</u>
+Se trata de un material adecuado para **estudio, repaso y práctica**, ya que concentra conceptos fundamentales como:
 
-<b>EducacionIT</b> necesita desarrollar un `prototipo
-básico de formulario de inscripción de alumnos`
-a carreras, junto con sus correspondientes cursos.
-Debido al comienzo del ciclo lectivo la empresa
-debe comenzar a utilizar la aplicación en _24hs_.
+- variables
+- entrada y salida por consola
+- estructuras condicionales
+- estructuras repetitivas
+- arreglos
+- métodos auxiliares
+- organización básica de un programa
 
-En base a esta urgencia, la `primera versión` de la
-aplicación se decide hacer en `formato consola`,
-ya que este tipo de aplicaciones nos permite
-realizar un rápido desarrollo y prueba de
-funcionalidad.
+---
 
-<hr>
+## Objetivo académico
 
-## Carpetas:
-~~~ js
-integrador: C SHARP (Program.cs - codigo fuente)
-modules: archivos PDF de cada modulo
-~~~
+El propósito del proyecto es construir una solución simple, incremental y comprensible que permita:
 
-## Branches - Resumen de contenido
-<br>
-El proyecto cuenta con 3 etapas de desarrollo
+1. registrar los datos básicos de un alumno;
+2. confirmar la información ingresada;
+3. seleccionar cursos desde un menú;
+4. evitar la duplicación de cursadas;
+5. emitir una constancia final por consola.
 
-~~~ js
-/* stage-01 */
-Variables iniciales y su respectiva 
-captura de informacion por consola (usuario)
-y vista de dicha informacion de usuario
+---
 
-/* stage-02 */
-Se agrega el menu inicial de seleccion de cursadas
+## Contexto del ejercicio
 
-/* stage-03 */
-Se completa el menu de seleccion con sus
-respectivas excepciones de espacios y
-cursadas ya asignadas por consola
+El sistema representa un prototipo de inscripción académica en formato consola.  
+La elección de este formato responde a un enfoque inicial de aprendizaje, priorizando:
+
+- rapidez de implementación;
+- facilidad de prueba;
+- claridad en la lógica;
+- comprensión de los fundamentos del lenguaje.
+
+---
+
+## Tecnologías utilizadas
+
+- **C#**
+- **.NET**
+- **Visual Studio**
+
+---
+
+## Estructura del repositorio
