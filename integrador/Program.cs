@@ -74,7 +74,11 @@ namespace integrador
 
             do
             {
-                Console.WriteLine(titulo);
+                if (!string.IsNullOrWhiteSpace(titulo))
+                {
+                    Console.WriteLine(titulo);
+                }
+
                 Console.Write(mensaje);
                 respuesta = Console.ReadLine();
 
@@ -234,7 +238,7 @@ namespace integrador
         {
             for (int i = 0; i < cursadas.Length; i++)
             {
-                if (cursadas[i].Equals(curso, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(cursadas[i], curso, StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
