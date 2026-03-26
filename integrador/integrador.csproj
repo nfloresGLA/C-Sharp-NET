@@ -44,6 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Models\Alumno.cs" />
+    <Compile Include="Helpers\CursadaHelper.cs" />
+    <Compile Include="Services\ConsoleInputService.cs" />
+    <Compile Include="Services\ConsoleOutputService.cs" />
+    <Compile Include="Services\FormularioAlumnoService.cs" />
+    <Compile Include="Services\InscripcionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
